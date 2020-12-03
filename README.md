@@ -1,7 +1,7 @@
 # MX Inline
 ![MX Inline Demo](resources/img/mx-inline-demo-logo.png)
 
-**MX Inline** is a ExpressionEngine plugin that helps you inline files (like webp, png, jpeg, js, css, svg) into your templates.
+**MX Inline** is an ExpressionEngine plugin that helps you inline files (like webp, png, jpeg, js, css, svg) into your templates.
 
 ## Installation
 * Place the **mx_inline** folder inside your **user/addons** folder
