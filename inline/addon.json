@@ -1,0 +1,16 @@
+{
+  "name": "MX Inline",
+  "shortname": "inline",
+  "version": "1.0.4",
+  "foundation_version": "4.5.2",
+  "description": "Add-on for inlining files in ExpressionEngine templates.",
+  "license": "MaxLazar",
+  "namespace": "MX\\Inline",
+  "require": {
+    "php": ">=5.3.*",
+    "expressionengine/core": ">=3.5.17"
+  },
+  "resources": {
+    "themes": false
+  }
+}
