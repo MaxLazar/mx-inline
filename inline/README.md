@@ -15,7 +15,7 @@
 
 *file*
 
-Path to file (**full PATH!** not URL)
+Path to file (**PATH!** not URL)
 
 *base64_encode* _(optional, default = no)_
 
@@ -43,7 +43,16 @@ The plugin will add any attributes defined file tag output.
 	  <!-- output -->
 	
 	<img src="data:image/png;base64,iVBORw ... mCC" alt="icon.png" class="png" data-type="lazy" />
-	
+
+## Configuration Overrides
+
+Root path to files
+
+	$config['mx_inline'] = [
+	    // Enter the path to the directories where you store your files. Absolute paths should be used. Default - web root
+	    'paths' => '/var/www/example.com/public_html'
+	];
+
 ## Examples
 
 
@@ -78,6 +87,8 @@ The plugin will add any attributes defined file tag output.
 	<!-- output -->
 	
 	<svg class="svg"  width="318" height="279" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> ... /svg>
+	
+
 
 ## Warning
 

@@ -123,6 +123,11 @@ class Inline
      */
     public $cache = true;
 
+    /**
+     * @var array
+     */
+    public $config = [];
+
     // --------------------------------------------------------------------
     // METHODS
     // --------------------------------------------------------------------
@@ -139,6 +144,10 @@ class Inline
             if (ee()->extensions->active_hook('mx_inline_start')) {
                 ee()->extensions->call('mx_inline_start');
             }
+        }
+
+        if (!isset(ee()->config->item('mx_inline')['paths'])) {
+            ee()->config->set_item('mx_inline', array('paths' => FCPATH));
         }
 
         $data                 = false;
@@ -167,6 +176,10 @@ class Inline
 
         $mime = new \ExpressionEngine\Library\Mime\MimeType();
 
+        if ($remote != 'yes') {
+            $file = reduce_double_slashes(ee()->config->item('mx_inline')['paths'] . $file);
+        }
+
         if (file_exists($file)) {
             $data       = file_get_contents($file);
             $this->type = $mime->ofFile($file);
@@ -182,7 +195,7 @@ class Inline
                 $file     = $protocol . $file;
             }
 
-            $cache_path = str_replace('\\', '/', PATH_CACHE) . '/' . $this->cache_dir;
+            $cache_path = reduce_double_slashes(str_replace('\\', '/', PATH_CACHE) . '/' . $this->cache_dir);
             $filepath   = $cache_path . "/" . md5($file) . '.' . $extension;
 
             if (!($data = self::_readCache(md5($file) . '.' . $extension)) || $this->cache != 'yes') {
@@ -242,7 +255,7 @@ class Inline
      */
     private function _createCacheFile($data, $key)
     {
-        $cache_path = str_replace('\\', '/', PATH_CACHE) . '' . $this->cache_dir;
+        $cache_path = reduce_double_slashes(str_replace('\\', '/', PATH_CACHE) . '' . $this->cache_dir);
         $filepath   = $cache_path . "/" . $key;
 
         if (!is_dir($cache_path)) {
@@ -261,8 +274,7 @@ class Inline
         flock($fp, LOCK_UN);
         fclose($fp);
         chmod($filepath, DIR_WRITE_MODE);
-
-     //   self::logDebugMessage('debug', "Cache file written: " . $filepath);
+        //   self::logDebugMessage('debug', "Cache file written: " . $filepath);
     }
 
     /**
@@ -275,7 +287,7 @@ class Inline
     private function _readCache($key)
     {
         $cache      = false;
-        $cache_path = str_replace('\\', '/', PATH_CACHE) . '/' . $this->cache_dir;
+        $cache_path = reduce_double_slashes(str_replace('\\', '/', PATH_CACHE) . '/' . $this->cache_dir);
         $filepath   = $cache_path . "/" . $key;
 
         if (!file_exists($filepath)) {
